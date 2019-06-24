@@ -7,9 +7,9 @@ const burger = props => {
   // transform the ingredients object into an array of jsx tags
   // reduce wil count each ingredient by quantity
   let transformedIngredients = Object.keys(props.ingredients).map(ingredientName => {
-    return [...Array(props.ingredients[ingredientName])].map( (_, quantity)=> {
-      return <BurgerIngredient key={ingredientName + quantity} type={ingredientName}/>
-    });
+    return [...Array(props.ingredients[ingredientName])].map( (_, quantity)=> (
+      <BurgerIngredient key={ingredientName + quantity} type={ingredientName}/>
+    ));
   }).reduce((ingredients, ingredient) => {
     return ingredients.concat(ingredient)
   }, []);
