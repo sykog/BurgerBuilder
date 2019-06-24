@@ -3,7 +3,7 @@ import Burger from '../../Components/Burger/Burger'
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls'
 
 const INGREDIENT_PRICES = {
-  salad: .5,
+  lettuce: .5,
   cheese: .4,
   patty: 1.3,
   bacon: .7
@@ -17,7 +17,8 @@ class BurgerBuilder extends Component {
       cheese: 0,
       patty: 0
     },
-    totalPrice: 4
+    totalPrice: 4,
+    purchasable: false
   }
 
   addIngredient = type => {
@@ -32,6 +33,7 @@ class BurgerBuilder extends Component {
       totalPrice: totalPrice,
       ingredients: updatedIngredients
     });
+    this.checkIfPurchasable(updatedIngredients);
   }
 
   removeIngredient = type => {
@@ -48,6 +50,17 @@ class BurgerBuilder extends Component {
       totalPrice: totalPrice,
       ingredients: updatedIngredients
     });
+    this.checkIfPurchasable(updatedIngredients);
+  }
+
+  checkIfPurchasable = ingredients => {
+    const sum = Object.keys(ingredients).map(ingredientName => {
+      return ingredients[ingredientName];
+    }).reduce((sum, ingredientCount) => {
+      return sum + ingredientCount;
+    }, 0);
+
+    this.setState({purchasable: sum > 0});
   }
 
   render() {
@@ -60,7 +73,7 @@ class BurgerBuilder extends Component {
       <React.Fragment>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls ingredientAdded={this.addIngredient} ingredientRemoved={this.removeIngredient}
-            disabled={disabledInfo}/>
+            disabled={disabledInfo} price={this.state.totalPrice} purchasable={this.state.purchasable}/>
       </React.Fragment>
     );
   }
