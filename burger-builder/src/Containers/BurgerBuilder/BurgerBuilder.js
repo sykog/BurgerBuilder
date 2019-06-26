@@ -3,6 +3,8 @@ import Burger from '../../Components/Burger/Burger';
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls';
 import Model from '../../Components/UI/Model/Model';
 import OrderSummary from '../../Components/Burger/OrderSummary/OrderSummary';
+import Spinner from '../../Components/UI/Spinner/Spinner';
+import axios from '../../axiosOrders';
 
 const INGREDIENT_PRICES = {
   lettuce: .5,
@@ -21,7 +23,8 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 4,
     purchasable: false,
-    purchasing: false
+    purchasing: false,
+    loading: false
   }
 
   addIngredient = type => {
@@ -75,7 +78,25 @@ class BurgerBuilder extends Component {
   }
 
   continuePurchase = () => {
-    alert('You continue!');
+    this.setState({loading: true});
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: 'Antonio Suarez',
+        address: {
+          street: '12345 5th St SE',
+          zip: '90000'
+        },
+        email: 'asuarez@mail.com'
+      }
+    }
+    axios.post('orders.json', order).then(response => {
+      this.setState({loading: false, purchasing: false});
+    }).catch(error => {
+      console.log(error);
+      this.setState({loading: false, purchasing: false});
+    });
   }
 
   render() {
@@ -83,12 +104,16 @@ class BurgerBuilder extends Component {
     for (let ingredientCount in disabledInfo) {
       disabledInfo[ingredientCount] = disabledInfo[ingredientCount] <= 0;
     }
+    let orderSummary = <OrderSummary ingredients={this.state.ingredients} price={this.state.totalPrice}
+        cancel={this.hideOrderSummary} continue={this.continuePurchase}/>;
 
+    if (this.state.loading) {
+      orderSummary = <Spinner/>;
+    }
     return (
       <React.Fragment>
         <Model show={this.state.purchasing} modalClosed={this.hideOrderSummary}>
-          <OrderSummary ingredients={this.state.ingredients} price={this.state.totalPrice}
-              cancel={this.hideOrderSummary} continue={this.continuePurchase}/>
+          {orderSummary}
         </Model>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls ingredientAdded={this.addIngredient} ingredientRemoved={this.removeIngredient}
