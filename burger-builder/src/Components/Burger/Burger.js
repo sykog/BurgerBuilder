@@ -1,9 +1,10 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import BurgerIngredient from './BurgerIngredient'
 import classes from './burger.css';
 
 const burger = props => {
-
+  console.log(props);
   // transform the ingredients object into an array of jsx tags
   // reduce wil count each ingredient by quantity
   let transformedIngredients = Object.keys(props.ingredients).map(ingredientName => {
@@ -13,10 +14,11 @@ const burger = props => {
   }).reduce((ingredients, ingredient) => {
     return ingredients.concat(ingredient)
   }, []);
+
   if (transformedIngredients.length === 0) {
       transformedIngredients = <p>Please start adding ingredients!</p>
   }
-  console.log(transformedIngredients);
+  //console.log(transformedIngredients);
 
   return(
     <div className={classes.burger}>
@@ -27,4 +29,4 @@ const burger = props => {
   );
 };
 
-export default burger;
+export default withRouter(burger);
