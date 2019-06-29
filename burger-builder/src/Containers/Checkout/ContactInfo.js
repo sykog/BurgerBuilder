@@ -2,15 +2,53 @@ import React, {Component} from "react";
 import axios from '../../axiosOrders';
 import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
+import Input from '../../Components/UI/Input/Input';
 import classes from './contactInfo.css';
 
 class Checkout extends Component {
   state = {
-    name: '',
-    email: '',
-    address: {
-      street: '',
-      zip: ''
+    orderForm: {
+      name: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Name',
+          value: ''
+        }
+      },
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Email',
+          value: ''
+        }
+      },
+      street: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Address',
+          value: ''
+        }
+      },
+      zip: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Zip Code',
+          value: ''
+        }
+      },
+      deliveryMethod: {
+        elementType: 'select',
+        elementConfig: {
+          options: [
+            {value: 'delivery', displayValue: 'Delivery'},
+            {value: 'pickup', displayValue: 'Pickup'}
+          ]
+        }
+      }
     },
     loading: false
   }
@@ -20,15 +58,7 @@ class Checkout extends Component {
     this.setState({loading: true});
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price,
-      customer: {
-        name: 'Antonio Suarez',
-        address: {
-          street: '12345 5th St SE',
-          zip: '90000'
-        },
-        email: 'asuarez@mail.com'
-      }
+      price: this.props.price
     }
     axios.post('orders.json', order).then(response => {
       this.setState({loading: false});
@@ -42,10 +72,10 @@ class Checkout extends Component {
   render() {
     let form = (
       <form>
-        <input className={classes.input} type="text" name="name" placeholder="Name"/>
-        <input className={classes.input} type="text" name="email" placeholder="Email"/>
-        <input className={classes.input} type="text" name="street" placeholder="Address"/>
-        <input className={classes.input} type="text" name="zip" placeholder="Zip Code"/>
+        <Input elementType="..." elementValue="..." value="..."/>
+        <Input inputtype="input" type="email" name="email" placeholder="Email"/>
+        <Input inputtype="input" type="text" name="street" placeholder="Address"/>
+        <Input inputtype="input" type="text" name="zip" placeholder="Zip Code"/>
         <Button btnType="success" clicked={this.orderBurger}>ORDER</Button>
       </form>
     );
