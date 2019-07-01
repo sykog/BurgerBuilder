@@ -12,33 +12,55 @@ class Checkout extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Name',
-          value: ''
-        }
+          placeholder: 'Name'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       email: {
         elementType: 'input',
         elementConfig: {
           type: 'email',
-          placeholder: 'Email',
-          value: ''
-        }
+          placeholder: 'Email'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       street: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Address',
-          value: ''
-        }
+          placeholder: 'Address'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       zip: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Zip Code',
-          value: ''
-        }
+          placeholder: 'Zip Code'
+        },
+        value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5
+        },
+        valid: false,
+        touched: false
       },
       deliveryMethod: {
         elementType: 'select',
@@ -47,19 +69,55 @@ class Checkout extends Component {
             {value: 'delivery', displayValue: 'Delivery'},
             {value: 'pickup', displayValue: 'Pickup'}
           ]
-        }
+        },
+        value: 'delivery',
+        validation: {},
+        valid: true,
+        touched: false
       }
     },
-    loading: false
+    loading: false,
+    validForm: false
   }
 
-  orderBurger = (event) => {
+  receiveInput = (event, selectedInput) => {
+    const updatedForm = {...this.state.orderForm};
+    const formElement = {...updatedForm[selectedInput]};
+
+    formElement.value = event.target.value;
+    formElement.valid = this.validateInput(formElement.value, formElement.validation);
+    formElement.touched = true;
+    updatedForm[selectedInput] = formElement;
+
+    let validForm = true;
+    for (let inputName in updatedForm) {
+      validForm = updatedForm[inputName].valid && validForm;
+    }
+    this.setState({orderForm: updatedForm, validForm: validForm});
+  }
+
+  validateInput = (value, rules) => {
+    let valid = true;
+    if (rules.required) valid = value.trim() !== '' && valid;
+    if (rules.minLength) valid = value.length >= rules.minLength && valid;
+    if (rules.maxLength) valid = value.length <= rules.maxLength && valid;
+
+    return valid;
+  }
+
+  orderBurger = event => {
     event.preventDefault();
     this.setState({loading: true});
+    const formData = {};
+    for (let inputIdentifier in this.state.orderForm) {
+      formData[inputIdentifier] = this.state.orderForm[inputIdentifier].value;
+    }
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price
+      price: this.props.price,
+      orderData: formData
     }
+
     axios.post('orders.json', order).then(response => {
       this.setState({loading: false});
       this.props.history.push('/');
@@ -70,13 +128,24 @@ class Checkout extends Component {
   }
 
   render() {
+    const formElements = [];
+    for (let key in this.state.orderForm) {
+      formElements.push({
+        id: key,
+        config: this.state.orderForm[key]
+      });
+    }
     let form = (
-      <form>
-        <Input elementType="..." elementValue="..." value="..."/>
-        <Input inputtype="input" type="email" name="email" placeholder="Email"/>
-        <Input inputtype="input" type="text" name="street" placeholder="Address"/>
-        <Input inputtype="input" type="text" name="zip" placeholder="Zip Code"/>
-        <Button btnType="success" clicked={this.orderBurger}>ORDER</Button>
+      <form onSubmit={this.orderBurger}>
+        {formElements.map(formElement => (
+          <Input key={formElement.id} elementType={formElement.config.elementType}
+              elementConfig={formElement.config.elementConfig}
+              value={formElement.config.value} invalid={!formElement.config.valid}
+              shouldValidate={formElement.config.validation} touched={formElement.config.touched}
+              changed={(event) => this.receiveInput(event, formElement.id)}
+          />
+        ))}
+        <Button btnType="success" disabled={!this.state.validForm}>ORDER</Button>
       </form>
     );
     if (this.state.loading) form = <Spinner/>
