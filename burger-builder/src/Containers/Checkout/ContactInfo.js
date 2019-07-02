@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from '../../axiosOrders';
+import {connect} from 'react-redux';
 import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import Input from '../../Components/UI/Input/Input';
@@ -158,4 +159,11 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients,
+    price: state.totalPrice
+  };
+};
+
+export default connect(mapStateToProps)(Checkout);
