@@ -1,27 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import * as actionTypes from '../../Store/actions';
+import * as actions from '../../Store/Actions/index';
+import axios from '../../axiosOrders';
 import Burger from '../../Components/Burger/Burger';
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls';
 import Model from '../../Components/UI/Model/Model';
 import OrderSummary from '../../Components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler'
-import axios from '../../axiosOrders';
 
 class BurgerBuilder extends Component {
   state = {
     purchasing: false,
-    loading: false,
-    error: false
+    loading: false
   }
 
   componentDidMount() {
-    /*axios.get('ingredients.json').then(response => {
-      this.setState({ingredients: response.data});
-    }).catch(error => {
-      this.setState({error: true});
-    });*/
+    this.props.onInitializeIngredients();
   }
 
   checkIfPurchasable = ingredients => {
@@ -53,7 +48,7 @@ class BurgerBuilder extends Component {
       disabledInfo[ingredientCount] = disabledInfo[ingredientCount] <= 0;
     }
     let orderSummary = null;
-    let burger = this.state.error ? <p>Ingredients can't be loaded</p> : <Spinner/>;
+    let burger = this.props.error ? <p>Ingredients can't be loaded</p> : <Spinner/>;
 
     if (this.props.ingredients) {
       burger = (
@@ -86,18 +81,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
-    price: state.totalPrice
+    price: state.totalPrice,
+    error: state.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingredient) => dispatch({
-      type: actionTypes.ADD_INGREDIENT, ingredient: ingredient
-    }),
-    onIngredientRemoved: (ingredient) => dispatch({
-      type: actionTypes.REMOVE_INGREDIENT, ingredient: ingredient
-    })
+    onIngredientAdded: (ingredient) => dispatch(actions.addIngredient(ingredient)),
+    onIngredientRemoved: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
+    onInitializeIngredients: () => dispatch(actions.initializeIngredients())
   };
 };
 
