@@ -10,6 +10,7 @@ import Spinner from '../../Components/UI/Spinner/Spinner';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler'
 
 class BurgerBuilder extends Component {
+
   state = {
     purchasing: false,
     loading: false
@@ -38,6 +39,7 @@ class BurgerBuilder extends Component {
   }
 
   continuePurchase = () => {
+    this.props.onInitializeCheckout();
     this.props.history.push('/checkout');
   }
 
@@ -80,9 +82,9 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients,
-    price: state.totalPrice,
-    error: state.error
+    ingredients: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error
   };
 };
 
@@ -90,7 +92,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: (ingredient) => dispatch(actions.addIngredient(ingredient)),
     onIngredientRemoved: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
-    onInitializeIngredients: () => dispatch(actions.initializeIngredients())
+    onInitializeIngredients: () => dispatch(actions.initializeIngredients()),
+    onInitializeCheckout: () => dispatch(actions.initializeCheckout())
   };
 };
 

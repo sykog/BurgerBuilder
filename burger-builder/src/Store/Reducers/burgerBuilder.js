@@ -42,6 +42,7 @@ const burgerBuilder = (state = initialState, action) => {
     case actionTypes.INITIALIZE_INGREDIENTS_FAILED:
       return {
         ...state,
+        totalPrice: 4,
         error: true
       }
     default: return state;
