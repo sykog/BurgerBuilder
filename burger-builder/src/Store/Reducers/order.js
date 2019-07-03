@@ -4,7 +4,7 @@ import {updateObject} from '../utility';
 const initialState = {
   orders: [],
   loading: false
-}
+};
 
 const completePurchaseSuccess = (state, action) => {
   const order = updateObject(action.orderData, {id: action.orderId});
@@ -13,7 +13,7 @@ const completePurchaseSuccess = (state, action) => {
     purchased: true,
     orders: state.orders.concat(order)
   });
-}
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

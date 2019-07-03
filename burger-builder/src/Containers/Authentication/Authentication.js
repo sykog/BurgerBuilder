@@ -36,7 +36,8 @@ class Authentication extends Component {
         valid: false,
         touched: false
       }
-    }
+    },
+    registering: true
   }
 
   receiveInput = (event, selectedInput) => {
@@ -64,7 +65,14 @@ class Authentication extends Component {
 
   submitForm = event => {
     event.preventDefault();
-    this.props.onAuthenticate(this.state.loginForm.email.value, this.state.loginForm.password.value);
+    this.props.onAuthenticate(this.state.loginForm.email.value,
+      this.state.loginForm.password.value, this.state.registering);
+  }
+
+  toggleLoginRegister = () => {
+    this.setState(previousState => {
+      return {registering: !previousState.registering}
+    });
   }
 
   render() {
@@ -90,6 +98,9 @@ class Authentication extends Component {
           {inputs}
           <Button btnType="success">SUBMIT</Button>
         </form>
+        <Button btnType="danger" clicked={this.toggleLoginRegister}>
+          SWITCH TO {this.state.registering ? "LOGIN" : "REGISTER"}
+        </Button>
       </div>
     );
   }
@@ -97,13 +108,15 @@ class Authentication extends Component {
 
 const mapStateToProps = state => {
   return {
-
+    loading: state.auth.loading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuthenticate: (email, password) => dispatch(actions.authenticate(email, password))
+    onAuthenticate: (email, password, registering) => {
+      dispatch(actions.authenticate(email, password, registering))
+    }
   };
 };
 
