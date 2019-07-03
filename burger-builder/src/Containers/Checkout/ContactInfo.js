@@ -138,8 +138,7 @@ class ContactInfo extends Component {
               elementConfig={formElement.config.elementConfig}
               value={formElement.config.value} invalid={!formElement.config.valid}
               shouldValidate={formElement.config.validation} touched={formElement.config.touched}
-              changed={(event) => this.receiveInput(event, formElement.id)}
-          />
+              changed={(event) => this.receiveInput(event, formElement.id)}/>
         ))}
         <Button btnType="success" disabled={!this.state.validForm}>ORDER</Button>
       </form>
