@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Toolbar from '../../Components/Navigation/Toolbar/Toolbar'
 import SideDrawer from '../../Components/Navigation/SideDrawer/SideDrawer';
 import classes from './layout.css';
@@ -21,12 +23,19 @@ class Layout extends Component {
   render() {
     return (
       <React.Fragment >
-        <Toolbar drawerToggleClicked={this.toggleSideDrawer}/>
-        <SideDrawer open={this.state.showSideDrawer} closed={this.closeSideDrawer}/>
+        <Toolbar drawerToggleClicked={this.toggleSideDrawer} authenticated={this.props.loggedIn}/>
+        <SideDrawer open={this.state.showSideDrawer} closed={this.closeSideDrawer}
+                    authenticated={this.props.loggedIn}/>
         <main className={classes.content}>{this.props.children}</main>
       </React.Fragment>
     );
   }
 }
 
-export default Layout;
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.auth.token !== null
+  };
+};
+
+export default connect(mapStateToProps)(Layout);

@@ -39,9 +39,23 @@ export const authenticate = (email, password, registering) => {
     axios.post(url, authData).then(response => {
         console.log(response);
         dispatch(authenticateSuccess(response.data.idToken, response.data.localId));
+        dispatch(checkAuthTimeout(response.data.expiresIn));
     }).catch(error => {
-        console.log(error);
-        dispatch(authenticateFailed(error));
+      dispatch(authenticateFailed(error.response.data.error));
     });
   }
-}
+};
+
+export const checkAuthTimeout = expirationTime => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime * 1000);
+  };
+};
+
+export const logout = () => {
+  return {
+    type: actionTypes.LOG_OUT
+  };
+};

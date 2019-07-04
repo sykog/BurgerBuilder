@@ -11,7 +11,7 @@ const toolbar = props => (
       <Logo/>
     </div>
     <nav className={classes.mobile}>
-      <NavItems/>
+      <NavItems authenticated={props.authenticated}/>
     </nav>
   </header>
 );

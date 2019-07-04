@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../Store/Actions/index';
 import Input from '../../Components/UI/Input/Input';
 import Button from '../../Components/UI/Button/Button';
+import Spinner from '../../Components/UI/Spinner/Spinner';
 import classes from './authentication.css';
 
 class Authentication extends Component {
@@ -84,17 +85,22 @@ class Authentication extends Component {
       });
     }
 
-    const inputs = formElements.map(formElement => (
+    let inputs = formElements.map(formElement => (
       <Input key={formElement.id} elementType={formElement.config.elementType}
              elementConfig={formElement.config.elementConfig}
              value={formElement.config.value} invalid={!formElement.config.valid}
              shouldValidate={formElement.config.validation} touched={formElement.config.touched}
              changed={(event) => this.receiveInput(event, formElement.id)}/>
     ));
+    if (this.props.loading) inputs = <Spinner/>;
+
+    let errorMessage = null;
+    if (this.props.error) errorMessage = <p>{this.props.error.message}</p>;
 
     return (
       <div className={classes.auth}>
         <form onSubmit={this.submitForm}>
+          {errorMessage}
           {inputs}
           <Button btnType="success">SUBMIT</Button>
         </form>
@@ -108,7 +114,8 @@ class Authentication extends Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.auth.loading
+    loading: state.auth.loading,
+    error: state.auth.error
   };
 };
 

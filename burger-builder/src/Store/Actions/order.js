@@ -13,11 +13,11 @@ export const startPurchase = () => {
   }
 }
 
-export const completePurchase = orderData => {
+export const completePurchase = (orderData, token) => {
   return dispatch => {
     dispatch(startPurchase());
 
-    axios.post('orders.json', orderData).then(response => {
+    axios.post('orders.json?auth=' + token, orderData).then(response => {
       dispatch(completePurchaseSuccess(response.data.name, orderData));
     }).catch(error => {
       dispatch(completePurchaseFailed(error));
@@ -40,10 +40,10 @@ export const completePurchaseFailed = error => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = token => {
   return dispatch => {
     dispatch(initializeFetchedOrders());
-    axios.get('orders.json').then(response => {
+    axios.get('orders.json?auth=' + token).then(response => {
       const orders = [];
       for (let key in response.data) {
         orders.push({...response.data[key], id: key})
