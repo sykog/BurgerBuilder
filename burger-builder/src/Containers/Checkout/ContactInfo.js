@@ -6,7 +6,7 @@ import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import Input from '../../Components/UI/Input/Input';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler'
-import {updateObject, validateInput} from '../../Shared/utility';
+import {updateObject, validateInput} from '../../Functions/utility';
 import classes from './contactInfo.css';
 
 class ContactInfo extends Component {

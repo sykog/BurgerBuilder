@@ -5,7 +5,7 @@ import * as actions from '../../Store/Actions/index';
 import Input from '../../Components/UI/Input/Input';
 import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
-import {updateObject, validateInput} from "../../Shared/utility";
+import {updateObject, validateInput} from "../../Functions/utility";
 import classes from './authentication.css';
 
 class Authentication extends Component {
