@@ -5,6 +5,7 @@ import * as actions from '../../Store/Actions/index';
 import Input from '../../Components/UI/Input/Input';
 import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
+import {updateObject, validateInput} from "../../Actions/utility";
 import classes from './authentication.css';
 
 class Authentication extends Component {
@@ -43,26 +44,14 @@ class Authentication extends Component {
   }
 
   receiveInput = (event, selectedInput) => {
-    const updatedForm = {
-      ...this.state.loginForm,
-      [selectedInput]: {
-        ...this.state.loginForm[selectedInput],
+    const updatedForm = updateObject(this.state.loginForm, {
+      [selectedInput]: updateObject(this.state.loginForm[selectedInput], {
         value: event.target.value,
-        valid: this.validateInput(event.target.value, this.state.loginForm[selectedInput].validation),
+        valid: validateInput(event.target.value, this.state.loginForm[selectedInput].validation),
         touched: true
-      }
-    };
-
+      })
+    });
     this.setState({loginForm: updatedForm});
-  }
-
-  validateInput = (value, rules) => {
-    let valid = true;
-    if (rules.required) valid = value.trim() !== '' && valid;
-    if (rules.minLength) valid = value.length >= rules.minLength && valid;
-    if (rules.maxLength) valid = value.length <= rules.maxLength && valid;
-
-    return valid;
   }
 
   submitForm = event => {

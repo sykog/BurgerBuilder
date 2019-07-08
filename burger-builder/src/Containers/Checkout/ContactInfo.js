@@ -6,6 +6,7 @@ import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import Input from '../../Components/UI/Input/Input';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler'
+import {updateObject, validateInput} from '../../Actions/utility';
 import classes from './contactInfo.css';
 
 class ContactInfo extends Component {
@@ -83,28 +84,20 @@ class ContactInfo extends Component {
   }
 
   receiveInput = (event, selectedInput) => {
-    const updatedForm = {...this.state.orderForm};
-    const formElement = {...updatedForm[selectedInput]};
-
-    formElement.value = event.target.value;
-    formElement.valid = this.validateInput(formElement.value, formElement.validation);
-    formElement.touched = true;
-    updatedForm[selectedInput] = formElement;
+    const formElement = updateObject(this.state.orderForm[selectedInput], {
+      value: event.target.value,
+      valid: validateInput(event.target.value, this.state.orderForm[selectedInput].validation),
+      touched: true
+    });
+    const updatedForm = updateObject(this.state.orderForm, {
+      [selectedInput]: formElement
+    });
 
     let validForm = true;
     for (let inputName in updatedForm) {
       validForm = updatedForm[inputName].valid && validForm;
     }
     this.setState({orderForm: updatedForm, validForm: validForm});
-  }
-
-  validateInput = (value, rules) => {
-    let valid = true;
-    if (rules.required) valid = value.trim() !== '' && valid;
-    if (rules.minLength) valid = value.length >= rules.minLength && valid;
-    if (rules.maxLength) valid = value.length <= rules.maxLength && valid;
-
-    return valid;
   }
 
   orderBurger = event => {
