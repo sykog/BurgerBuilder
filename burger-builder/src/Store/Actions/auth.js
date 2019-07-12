@@ -79,10 +79,10 @@ export const checkAuthState = () => {
 }
 
 export const logout = () => {
-  localStorage.removeItem('token');
+  /*localStorage.removeItem('token');
   localStorage.removeItem('expirationDate');
-  localStorage.removeItem('userId');
+  localStorage.removeItem('userId');*/
   return {
-    type: actionTypes.LOG_OUT
+    type: actionTypes.INITIALIZE_LOGOUT
   };
 };
