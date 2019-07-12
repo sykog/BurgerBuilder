@@ -1,3 +1,4 @@
 export {addIngredient, removeIngredient, initializeIngredients} from './burgerBuilder';
 export {completePurchase, initializeCheckout, fetchOrders} from './order';
-export {authenticate, logout, checkAuthState} from './auth';
+export {startAuthentication, authenticate, logout, checkAuthState, logoutSuccess,
+    authenticateFailed, authenticateSuccess, checkAuthTimeout} from './auth';
