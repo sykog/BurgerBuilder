@@ -1,27 +1,17 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axiosOrders';
 
 export const initializeCheckout = () => {
-  return {
-    type: actionTypes.INITIALIZE_CHECKOUT
-  };
+  return {type: actionTypes.INITIALIZE_CHECKOUT};
 };
 
 export const startPurchase = () => {
-  return {
-    type: actionTypes.START_PURCHSASE
-  }
+  return {type: actionTypes.START_PURCHSASE}
 }
 
 export const completePurchase = orderData => {
-  return dispatch => {
-    dispatch(startPurchase());
-
-    axios.post('orders.json', orderData).then(response => {
-      dispatch(completePurchaseSuccess(response.data.name, orderData));
-    }).catch(error => {
-      dispatch(completePurchaseFailed(error));
-    });
+  return {
+    type: actionTypes.COMPLETE_PURCHASE,
+    orderData: orderData
   };
 };
 
@@ -41,24 +31,14 @@ export const completePurchaseFailed = error => {
 };
 
 export const fetchOrders = token => {
-  return dispatch => {
-    dispatch(initializeFetchedOrders());
-    axios.get('orders.json?auth=' + token).then(response => {
-      const orders = [];
-      for (let key in response.data) {
-        orders.push({...response.data[key], id: key})
-      }
-      dispatch(fetchOrdersSuccess(orders));
-    }).catch(error => {
-      dispatch(fetchOrdersFailed(error))
-    });
+  return {
+    type: actionTypes.FETCH_ORDERS,
+    token: token
   };
 };
 
 export const initializeFetchedOrders = () => {
-  return {
-    type: actionTypes.INITIALIZE_FETCHED_ORDERS
-  };
+  return {type: actionTypes.INITIALIZE_FETCHED_ORDERS};
 };
 
 export const fetchOrdersSuccess = orders => {
