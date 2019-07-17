@@ -1,38 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import Model from '../../Components/UI/Model/Model';
+import React from 'react';
+import Model from '../../Components/UI/Modal/Modal';
+import useHttpErrorHandler from '../../Hooks/httpErrorHandler';
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return props => {
-    const [error, setError] = useState(null);
-
-    const requestInterceptor = axios.interceptors.request.use(request => {
-      setError(null);
-      return request;
-    });
-
-    const responseInterceptor = axios.interceptors.response.use(
-      response => response,
-      error => setError(this.error)
-    );
-
-    useEffect(() => {
-      axios.interceptors.request.eject(requestInterceptor);
-      axios.interceptors.response.eject(responseInterceptor);
-    }, [requestInterceptor, responseInterceptor]);
-
-    const confirmError = () => {
-      setError(null);
-    }
+    const [error, clearError] = useHttpErrorHandler(axios);
 
     return (
       <React.Fragment>
-        <Model show={error} modalClosed={confirmError}>
+        <Model show={error} modalClosed={clearError}>
           {error ? error.message : null}
         </Model>
-        <WrappedComponent {...props}/>
+        <WrappedComponent {...props} />
       </React.Fragment>
     );
-  }
-}
+  };
+};
 
 export default withErrorHandler;

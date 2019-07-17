@@ -4,7 +4,7 @@ import * as actions from '../../Store/Actions/index';
 import axios from '../../axiosOrders';
 import Burger from '../../Components/Burger/Burger';
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls';
-import Model from '../../Components/UI/Model/Model';
+import Model from '../../Components/UI/Modal/Modal';
 import OrderSummary from '../../Components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler'

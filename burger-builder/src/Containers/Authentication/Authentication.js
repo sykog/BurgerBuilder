@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import * as actions from '../../Store/Actions/index';
@@ -8,104 +8,99 @@ import Spinner from '../../Components/UI/Spinner/Spinner';
 import {updateObject, validateInput} from "../../Functions/utility";
 import classes from './authentication.css';
 
-class Authentication extends Component {
-  state = {
-    loginForm: {
-      email: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'email',
-          placeholder: 'Email Login'
-        },
-        value: '',
-        validation: {
-          required: true,
-          isEmail: true
-        },
-        valid: false,
-        touched: false
+const Authentication = props => {
+  
+  const [loginForm, setLoginForm] = useState({
+    email: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'email',
+        placeholder: 'Email Login'
       },
-      password: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'password',
-          placeholder: 'Password'
-        },
-        value: '',
-        validation: {
-          required: true,
-          minLength: 6
-        },
-        valid: false,
-        touched: false
-      }
+      value: '',
+      validation: {
+        required: true,
+        isEmail: true
+      },
+      valid: false,
+      touched: false
     },
-    registering: true
-  }
+    password: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'password',
+        placeholder: 'Password'
+      },
+      value: '',
+      validation: {
+        required: true,
+        minLength: 6
+      },
+      valid: false,
+      touched: false
+    }
+  });
+  const [registering, setRegistering] = useState(true);
 
-  receiveInput = (event, selectedInput) => {
-    const updatedForm = updateObject(this.state.loginForm, {
-      [selectedInput]: updateObject(this.state.loginForm[selectedInput], {
+  const receiveInput = (event, selectedInput) => {
+    const updatedForm = updateObject(loginForm, {
+      [selectedInput]: updateObject(loginForm[selectedInput], {
         value: event.target.value,
-        valid: validateInput(event.target.value, this.state.loginForm[selectedInput].validation),
+        valid: validateInput(event.target.value, loginForm[selectedInput].validation),
         touched: true
       })
     });
-    this.setState({loginForm: updatedForm});
-  }
+    setLoginForm(updatedForm);
+  };
 
-  submitForm = event => {
+  const submitForm = event => {
     event.preventDefault();
-    this.props.onAuthenticate(this.state.loginForm.email.value,
-      this.state.loginForm.password.value, this.state.registering);
-  }
+    props.onAuthenticate(loginForm.email.value,
+      loginForm.password.value, registering);
+  };
 
-  toggleLoginRegister = () => {
-    this.setState(previousState => {
-      return {registering: !previousState.registering}
+  const toggleLoginRegister = () => {
+    setRegistering(!registering);
+  };
+
+  const formElements = [];
+  for (let key in loginForm) {
+    formElements.push({
+      id: key,
+      config: loginForm[key]
     });
   }
 
-  render() {
-    const formElements = [];
-    for (let key in this.state.loginForm) {
-      formElements.push({
-        id: key,
-        config: this.state.loginForm[key]
-      });
-    }
+  let inputs = formElements.map(formElement => (
+    <Input key={formElement.id} elementType={formElement.config.elementType}
+           elementConfig={formElement.config.elementConfig}
+           value={formElement.config.value} invalid={!formElement.config.valid}
+           shouldValidate={formElement.config.validation} touched={formElement.config.touched}
+           changed={(event) => receiveInput(event, formElement.id)}/>
+  ));
+  if (props.loading) inputs = <Spinner/>;
 
-    let inputs = formElements.map(formElement => (
-      <Input key={formElement.id} elementType={formElement.config.elementType}
-             elementConfig={formElement.config.elementConfig}
-             value={formElement.config.value} invalid={!formElement.config.valid}
-             shouldValidate={formElement.config.validation} touched={formElement.config.touched}
-             changed={(event) => this.receiveInput(event, formElement.id)}/>
-    ));
-    if (this.props.loading) inputs = <Spinner/>;
+  let errorMessage = null;
+  if (props.error) errorMessage = <p>{props.error.message}</p>;
 
-    let errorMessage = null;
-    if (this.props.error) errorMessage = <p>{this.props.error.message}</p>;
-
-    let loggedInRedirect = null;
-    if (this.props.loggedIn) {
-      loggedInRedirect = <Redirect to="/" />;
-    }
-
-    return (
-      <div className={classes.auth}>
-        <form onSubmit={this.submitForm}>
-          {loggedInRedirect}
-          {errorMessage}
-          {inputs}
-          <Button btnType="success">SUBMIT</Button>
-        </form>
-        <Button btnType="danger" clicked={this.toggleLoginRegister}>
-          SWITCH TO {this.state.registering ? "LOGIN" : "REGISTER"}
-        </Button>
-      </div>
-    );
+  let loggedInRedirect = null;
+  if (props.loggedIn) {
+    loggedInRedirect = <Redirect to="/" />;
   }
+
+  return (
+    <div className={classes.auth}>
+      <form onSubmit={submitForm}>
+        {loggedInRedirect}
+        {errorMessage}
+        {inputs}
+        <Button btnType="success">SUBMIT</Button>
+      </form>
+      <Button btnType="danger" clicked={toggleLoginRegister}>
+        SWITCH TO {registering ? "LOGIN" : "REGISTER"}
+      </Button>
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
