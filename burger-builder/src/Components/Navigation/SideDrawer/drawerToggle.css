@@ -1,5 +1,5 @@
 .drawerToggle {
-    width: 40px;
+    width: 50px;
     height: 100%;
     display: flex;
     flex-flow: column;
@@ -12,8 +12,10 @@
 
 .drawerToggle div {
     width: 90%;
-    height: 3px;
+    height: 4px;
     background-color: white;
+    box-shadow: 0 0 4px 1px #ae7016;
+    border-radius: 2px;
 }
 
 @media (min-width: 500px) {

@@ -9,22 +9,24 @@
 }
 
 .navItem {
-    margin: 10px 0px;
     width: 100%;
     box-sizing: border-box;
     display: block;
 }
 
 .navItem a {
-    color: #8f5c2c;
-    text-decoration: none;
     width: 100%;
+    padding: 15px 20px;
     box-sizing: border-box;
     display: block;
+    color: black;
+    font-size: 18px;
+    text-decoration: none;
+    text-shadow: 0 0 4px #ae7016;
 }
 
 .navItem a:hover, .navItem a:active, .navItem a.active {
-    color: #40a4c8;
+    background-color: #fdcb43;
 }
 
 @media (min-width: 500px) {
@@ -41,15 +43,7 @@
     }
 
     .navItem a {
-        color: white;
         height: 100%;
         padding: 16px 10px;
-        border-bottom: 4px solid transparent;
-    }
-
-    .navItem a:hover, .navItem a:active, .navItem a.active {
-        background-color: #8f5c2c;
-        border-bottom: 4px solid #40a4c8;
-        color: white;
     }
 }
