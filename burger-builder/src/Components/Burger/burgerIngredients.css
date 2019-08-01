@@ -1,5 +1,6 @@
 .ingredient {
+    display: block;
     max-width: 80vw;
     background-color: transparent;
-    margin: 0 auto;
+    margin: 4px auto;
 }
