@@ -12,8 +12,9 @@
 
 .inputElement {
     outline: none;
-    border: 1px solid #cccccc;
+    border: 2px solid #ffb301;
     background-color: white;
+    box-shadow: 0 0 3px #ae7016;
     font: inherit;
     padding: 6px 10px;
     display: block;
@@ -23,10 +24,10 @@
 
 .inputElement:focus {
     outline: none;
-    background-color: #eeeeee;
+    background-color: #fce700;
 }
 
 .invalid {
-    border: 1px solid red;
+    border: 2px solid red;
     background-color: #fda49a;
 }

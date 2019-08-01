@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 .buildControls {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    background-color: #009dff;
+    background-color: #006cc4;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -17,21 +21,24 @@
 }
 
 .order {
-    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(165deg, #27b5ff 0%, #0094eb 49%, #007dcd 51%, #009dff 100%);
     cursor: pointer;
     color: white;
     font-size: 1.5em;
-    padding: 15px 30px;
-    border: 3px solid #fdcb43;
+    padding: 10px 20px;
+    border: 4px solid #0094eb;
     border-radius: 20px;
+    box-shadow: 0 0 2px 1px #003d63;
 }
 
 .order:hover, .order:active {
-    background-color: #75caff;
+    background: linear-gradient(165deg, #54c8ff 0%, #00a1ff 49%, #008fe1 51%, #25b0ff 100%);
+    border: 4px solid #00a1ff;
 }
 
 .order:disabled {
-    background-color: #ccc;
+    background: #b1b1b1;
     cursor: not-allowed;
     border: 3px solid #c7c6c6;
     color: #888888;

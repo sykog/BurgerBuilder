@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import axios from '../../axiosOrders';
 import {connect} from 'react-redux';
 import * as actions from '../../Store/Actions/index'
-import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import Input from '../../Components/UI/Input/Input';
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler'
@@ -133,13 +132,13 @@ const ContactInfo = props => {
             shouldValidate={formElement.config.validation} touched={formElement.config.touched}
             changed={(event) => receiveInput(event, formElement.id)}/>
       ))}
-      <Button btnType="success" disabled={!validity}>ORDER</Button>
+      <button className={classes.order} disabled={!validity}>Order</button>
     </form>
   );
   if (props.loading) form = <Spinner/>
   return (
     <div className={classes.contactInfo}>
-      <h4>Enter your contact info</h4>
+      <h3>Enter your contact info</h3>
       {form}
     </div>
   );

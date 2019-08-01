@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 5px 0px;
-    color: black;
+    color: white;
 }
 
 .buildControl button {
@@ -11,26 +11,27 @@
     font: inherit;
     padding: 5px;
     margin: 0px 5px;
+    border-radius: 5px;
     width: 80px;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
     outline: none;
 }
 
 .buildControl button:disabled {
     background-color: #AC9980;
+    color: rgba(0, 0, 0, 0.6);
     cursor: default;
 }
 
 .buildControl button:hover:disabled {
     background-color: #AC9980;
+    color: rgba(0, 0, 0, 0.6);
     cursor: not-allowed;
 }
 
 .label {
     padding: 10px;
-    font-weight: bold;
     width: 80px;
 }
 
@@ -39,7 +40,7 @@
 }
 
 .buildControl .less {
-    background-color: #fdcb43;
+    background-color: #fce700;
 }
 
 .buildControl .less:hover, .buildControl .less:active, .buildControl .more:hover, .buildControl .more:active {
