@@ -6,6 +6,10 @@ import CheckoutSummary from '../../Components/Order/CheckoutSummary';
 
 const Checkout = props => {
 
+  const cancelCheckout = () => {
+    props.history.goBack();
+  }
+
   let orderSummary = <Redirect to="/"/>;
 
   if (props.ingredients) {
@@ -13,7 +17,7 @@ const Checkout = props => {
     orderSummary = (
       <div>
         {purchasedRedirect}
-        <CheckoutSummary ingredients={props.ingredients} />
+        <CheckoutSummary ingredients={props.ingredients} cancelCheckout={cancelCheckout}/>
         <ContactInfo/>
       </div>
     );

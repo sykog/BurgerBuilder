@@ -1,7 +1,9 @@
 .burger {
     width: 100%;
+    box-sizing: border-box;
     margin: auto;
-    height: max-content;
+    margin-top: 60px;
+    min-height: 40vh;
     overflow: hidden;
     text-align: center;
     font-weight: bold;
@@ -10,6 +12,7 @@
 
 @media (max-width: 499px) {
     .burger {
+        height: max-content;
         max-height: 60vh;
         overflow: scroll;
     }
