@@ -1,16 +1,24 @@
 .order {
+    margin: 15px auto;
     width: 80%;
-    border: 1px solid #eeeeee;
-    box-shadow: 0 3px 2px #cccccc;
-    padding: 10px;
-    margin: 10px;
+    max-width: 800px;
+    text-align: center;
+    background-color: #ffb301;
+    border-radius: 40px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    padding: 8px;
     box-sizing: border-box;
+    color: black;
+}
+
+.order:first-of-type {
+    margin-top: 100px;
 }
 
 .order span {
     text-transform: capitalize;
     display: inline-block;
     margin: 0px 8px;
-    border: 1px solid #cccccc;
     padding: 5px;
+    background-color: #fdcb43;
 }

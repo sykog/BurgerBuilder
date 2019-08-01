@@ -1,8 +1,8 @@
 .modal {
     position: fixed;
     z-index: 500;
-    background-color: #fdcb43;
-    width: 70%;
+    background-color: #ffb301;
+    width: 80%;
     box-shadow: 1px 1px 1px black;
     padding: 16px;
     left: 15%;
@@ -11,9 +11,29 @@
     transition: all 0.3s ease-out;
 }
 
+.modal h2, h3 {
+    width: max-content;
+    margin: 10px auto;
+}
+
+.modal > div {
+    width: max-content;
+    align-items: center;
+    margin: auto;
+}
+
 @media (min-width: 600px) {
     .modal {
         width: 500px;
         left: calc(50% - 250px);
+    }
+
+    .modal ul {
+        -moz-column-count: 2;
+        -moz-column-gap: 20px;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 20px;
+        column-count: 2;
+        column-gap: 20px;
     }
 }

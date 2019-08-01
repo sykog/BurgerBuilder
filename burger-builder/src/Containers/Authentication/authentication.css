@@ -1,11 +1,13 @@
 .auth {
-    margin: 20px auto;
+    margin: 120px auto 0 auto;
     width: 80%;
     text-align: center;
-    box-shadow: 0pc 3px 2px #cccccc;
-    border: 1px solid #eeeeee;
+    background-color: #ffb301;
+    border-radius: 40px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
     padding: 10px;
     box-sizing: border-box;
+    color: white;
 }
 
 @media (min-width: 600px) {

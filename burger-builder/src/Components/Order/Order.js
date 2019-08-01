@@ -10,13 +10,14 @@ const order = props => {
   }
 
   const formattedIngredient = ingredients.map(ingredient => {
-    return <span key={ingredient.name}>{ingredient.name} ({ingredient.quantity})</span>
+    let quantity = ingredient.quantity > 1 ? '(' + ingredient.quantity + ')' : null;
+    return <span key={ingredient.name}>{ingredient.name} {quantity}</span>
   });
 
   return (
     <div className={classes.order}>
       <p>Ingredients: {formattedIngredient}</p>
-      <p>Price: <strong>${Number.parseFloat(props.price).toFixed(2)}</strong></p>
+      <h3>Price: ${Number.parseFloat(props.price).toFixed(2)}</h3>
     </div>
   );
 }

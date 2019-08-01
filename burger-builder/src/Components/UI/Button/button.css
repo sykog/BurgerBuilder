@@ -31,5 +31,13 @@
 }
 
 .danger {
-    background-color: #ffb301;
+    background-color: #fdcb43;
+}
+
+@media(max-width: 400px) {
+    .button {
+        font-size: 1em;
+        padding: 6px;
+        margin: 6px;
+    }
 }

@@ -40,7 +40,7 @@ const Authentication = props => {
       touched: false
     }
   });
-  const [registering, setRegistering] = useState(true);
+  const [registering, setRegistering] = useState(false);
 
   const receiveInput = (event, selectedInput) => {
     const updatedForm = updateObject(loginForm, {
@@ -91,13 +91,14 @@ const Authentication = props => {
   return (
     <div className={classes.auth}>
       <form onSubmit={submitForm}>
+        <h2>{registering ? "Register" : "Login"}</h2>
         {loggedInRedirect}
         {errorMessage}
         {inputs}
-        <Button btnType="success">SUBMIT</Button>
+        <Button btnType="success">Submit</Button>
       </form>
       <Button btnType="danger" clicked={toggleLoginRegister}>
-        SWITCH TO {registering ? "LOGIN" : "REGISTER"}
+        Switch to {registering ? "Login" : "Register"}
       </Button>
     </div>
   );

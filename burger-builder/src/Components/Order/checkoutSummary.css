@@ -9,3 +9,7 @@
     height: max-content;
     magin: auto;
 }
+
+.checkout img {
+    width: 10%;
+}

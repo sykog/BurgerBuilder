@@ -4,23 +4,27 @@ import Button from '../../UI/Button/Button'
 const OrderSummary = props => {
 
   const ingredientSummary = Object.keys(props.ingredients).map(ingredient => {
-    return (
+    const quantity = props.ingredients[ingredient];
+
+    return quantity ? (
       <li key={ingredient}>
-        <span style={{textTransform: 'capitalize'}}>{ingredient}:</span>
-        {props.ingredients[ingredient]}
-      </li>);
+        <span style={{textTransform: 'capitalize'}}>{ingredient}</span>
+        {quantity > 1 ? ' (' + props.ingredients[ingredient] + ')' : null}
+      </li>) : null;
   });
 
   return (
     <React.Fragment>
-      <h3>Your Order</h3>
-      <p><strong>Total: ${props.price.toFixed(2)}</strong></p>
-      <p>A delicious burger with the ingredients:</p>
+      <h2>Your Order</h2>
+      <h3>Total: ${props.price.toFixed(2)}</h3>
       <ul>
         {ingredientSummary}
       </ul>
-      <Button btnType="success" clicked={props.continue}>Continue</Button>
-      <Button btnType="danger" clicked={props.cancel}>Cancel</Button>
+      <div>
+        <Button btnType="success" clicked={props.continue}>Continue</Button>
+        <Button btnType="danger" clicked={props.cancel}>Cancel</Button>
+      </div>
+
     </React.Fragment>
   );
 }
