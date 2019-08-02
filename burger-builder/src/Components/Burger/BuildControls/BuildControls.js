@@ -4,8 +4,10 @@ import classes from './buildControls.css';
 
 const controlsList = [
   {label: 'Lettuce', type: 'lettuce'},
-  {label: 'Bacon', type: 'bacon'},
+  {label: 'Onion', type: 'onion'},
+  {label: 'Tomato', type: 'tomato'},
   {label: 'Cheese', type: 'cheese'},
+  {label: 'Bacon', type: 'bacon'},
   {label: 'Patty', type: 'patty'}
 ]
 

@@ -2,10 +2,12 @@ import * as actionTypes from '../Actions/actionTypes';
 import {updateObject} from '../../Functions/utility';
 
 const INGREDIENT_PRICES = {
-  lettuce: .5,
-  cheese: .4,
-  patty: 1.3,
-  bacon: .7
+  lettuce: .3,
+  onion: .5,
+  tomato: .5,
+  cheese: .5,
+  patty: 2,
+  bacon: 1
 }
 
 const initialState = {
@@ -21,6 +23,7 @@ const addIngredient = (state, action) => {
     ingredients: ingredients,
     totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient]
   }
+  console.log(ingredients);
   return updateObject(state, updatedState);
 }
 

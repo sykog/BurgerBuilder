@@ -6,6 +6,8 @@ import patty from '../../Assets/Images/patty.png';
 import bacon from '../../Assets/Images/bacon.png';
 import lettuce from '../../Assets/Images/lettuce.png';
 import cheese from '../../Assets/Images/cheese.png';
+import onion from '../../Assets/Images/onion.png';
+import tomato from '../../Assets/Images/tomato.png';
 import classes from './burgerIngredients.css';
 
 const BurgerIngredient = props => {
@@ -28,6 +30,12 @@ const BurgerIngredient = props => {
       break;
     case('lettuce'):
       ingredient = <img className={classes.ingredient} src={lettuce} alt="lettuce"/>;
+      break;
+    case('onion'):
+      ingredient = <img className={classes.ingredient} src={onion} alt="onion"/>;
+      break;
+    case('tomato'):
+      ingredient = <img className={classes.ingredient} src={tomato} alt="tomato"/>;
       break;
     case('bacon'):
       ingredient = <img className={classes.ingredient} src={bacon} alt="bacon"/>;
