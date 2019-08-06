@@ -2,12 +2,22 @@ import * as actionTypes from '../Actions/actionTypes';
 import {updateObject} from '../../Functions/utility';
 
 const INGREDIENT_PRICES = {
-  lettuce: .3,
-  onion: .5,
-  tomato: .5,
+  beef: 2,
+  chicken: 2,
+  blackbean: 2,
   cheese: .5,
-  patty: 2,
-  bacon: 1
+  bacon: 1,
+  lettuce: .2,
+  spinach: .3,
+  onion: .4,
+  tomato: .4,
+  pickle: .4,
+  pineapple: .4,
+  ketchup: 0,
+  mayo: 0,
+  bbq: 0,
+  mustard: 0,
+  hotsauce: 0
 }
 
 const initialState = {
@@ -23,7 +33,6 @@ const addIngredient = (state, action) => {
     ingredients: ingredients,
     totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient]
   }
-  console.log(ingredients);
   return updateObject(state, updatedState);
 }
 
@@ -38,11 +47,13 @@ const removeIngredient = (state, action) => {
 }
 
 const setIngredients = (state, action) => {
-  return updateObject(state, {
-    ingredients: action.ingredients,
-    totalPrice: 4,
+  const ingredients = updateObject(state, {
+    ingredients: updateObject(state.ingredients, action.ingredients),
+    totalPrice: 2,
     error: false
   });
+  console.log(ingredients);
+  return ingredients;
 }
 
 const burgerBuilder = (state = initialState, action) => {
