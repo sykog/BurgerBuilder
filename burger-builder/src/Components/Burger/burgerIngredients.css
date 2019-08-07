@@ -2,5 +2,28 @@
     display: block;
     max-width: 80vw;
     background-color: transparent;
-    margin: 4px auto;
+    margin: 1px auto;
+}
+
+.ketchup, .hotsauce, .bbq, .mustard, .mayo {
+    width: 350px;
+    max-width: 80vw;
+    background-color: #ee000f;
+    height: 3px;
+}
+
+.hotsauce {
+    background-color: #e15700;
+}
+
+.bbq {
+    background-color: #913600;
+}
+
+.mayo {
+    background-color: #fae8e1;
+}
+
+.mustard {
+    background-color: #ebd200;
 }

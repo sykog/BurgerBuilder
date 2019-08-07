@@ -3,6 +3,7 @@
     box-sizing: border-box;
     margin: auto;
     margin-top: 60px;
+    padding-bottom: 6px;
     min-height: 40vh;
     overflow: hidden;
     text-align: center;

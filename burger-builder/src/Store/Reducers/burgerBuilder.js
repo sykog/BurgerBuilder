@@ -31,7 +31,7 @@ const addIngredient = (state, action) => {
   const ingredients = updateObject(state.ingredients, addedIngredient);
   const updatedState = {
     ingredients: ingredients,
-    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient]
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient.replace(/\s/g, '')]
   }
   return updateObject(state, updatedState);
 }
@@ -41,7 +41,7 @@ const removeIngredient = (state, action) => {
   const ingredients = updateObject(state.ingredients, removedIngredient);
   const updatedState = {
     ingredients: ingredients,
-    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient]
+    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient.replace(/\s/g, '')]
   }
   return updateObject(state, updatedState);
 }
@@ -52,7 +52,6 @@ const setIngredients = (state, action) => {
     totalPrice: 2,
     error: false
   });
-  console.log(ingredients);
   return ingredients;
 }
 
