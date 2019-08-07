@@ -17,7 +17,6 @@ import classes from './burgerIngredients.css';
 
 const BurgerIngredient = props => {
   let ingredient = null;
-  console.log(props);
 
   switch (props.type) {
     case('bunBottom'):

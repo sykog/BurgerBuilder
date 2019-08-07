@@ -6,8 +6,8 @@
 }
 
 .ketchup, .hotsauce, .bbq, .mustard, .mayo {
-    width: 350px;
-    max-width: 80vw;
+    width: 75%;
+    max-width: 350px;
     background-color: #ee000f;
     height: 3px;
 }

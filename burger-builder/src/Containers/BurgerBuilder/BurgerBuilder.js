@@ -37,10 +37,6 @@ export const BurgerBuilder = props => {
     props.history.push('/checkout');
   };
 
-  const disabledInfo = {...props.ingredients};
-  for (let ingredientCount in disabledInfo) {
-    disabledInfo[ingredientCount] = disabledInfo[ingredientCount] <= 0;
-  }
   let orderSummary = null;
   let burger = props.error ? <p>Ingredients can't be loaded</p> : <Spinner/>;
 
@@ -49,7 +45,7 @@ export const BurgerBuilder = props => {
       <React.Fragment>
         <Burger ingredients={props.ingredients}/>
         <BuildControls ingredientAdded={props.onIngredientAdded}
-            ingredientRemoved={props.onIngredientRemoved} disabled={disabledInfo}
+            ingredientRemoved={props.onIngredientRemoved} ingredients={props.ingredients}
             price={props.price} purchasable={checkIfPurchasable(props.ingredients)}
             ordering={showOrderSummary}/>
       </React.Fragment>
