@@ -55,8 +55,7 @@ const Authentication = props => {
 
   const submitForm = event => {
     event.preventDefault();
-    props.onAuthenticate(loginForm.email.value,
-      loginForm.password.value, registering);
+    props.onAuthenticate(loginForm.email.value, loginForm.password.value, registering);
   };
 
   const toggleLoginRegister = () => {
@@ -75,7 +74,7 @@ const Authentication = props => {
     <Input key={formElement.id} elementType={formElement.config.elementType}
            elementConfig={formElement.config.elementConfig}
            value={formElement.config.value} invalid={!formElement.config.valid}
-           shouldValidate={formElement.config.validation} touched={formElement.config.touched}
+           validation={formElement.config.validation} touched={formElement.config.touched}
            changed={(event) => receiveInput(event, formElement.id)}/>
   ));
   if (props.loading) inputs = <Spinner/>;
@@ -84,9 +83,7 @@ const Authentication = props => {
   if (props.error) errorMessage = <p>{props.error.message}</p>;
 
   let loggedInRedirect = null;
-  if (props.loggedIn) {
-    loggedInRedirect = <Redirect to="/" />;
-  }
+  if (props.loggedIn) loggedInRedirect = <Redirect to="/" />;
 
   return (
     <div className={classes.auth}>

@@ -15,7 +15,7 @@ export const BurgerBuilder = props => {
   const [loading] = useState(false);
 
   useEffect(() => {
-    if (!props.ingredients) props.onInitializeIngredients();
+    if (!props.ingredients) props.initializeIngredients();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,7 +33,7 @@ export const BurgerBuilder = props => {
   const hideOrderSummary = () => setPurchasing(false);
 
   const continuePurchase = () => {
-    props.onInitializeCheckout();
+    props.initializeCheckout();
     props.history.push('/checkout');
   };
 
@@ -44,12 +44,13 @@ export const BurgerBuilder = props => {
     burger = (
       <React.Fragment>
         <Burger ingredients={props.ingredients}/>
-        <BuildControls ingredientAdded={props.onIngredientAdded}
-            ingredientRemoved={props.onIngredientRemoved} ingredients={props.ingredients}
+        <BuildControls ingredientAdded={props.ingredientAdded}
+            ingredientRemoved={props.ingredientRemoved} ingredients={props.ingredients}
             price={props.price} purchasable={checkIfPurchasable(props.ingredients)}
             ordering={showOrderSummary}/>
       </React.Fragment>
     );
+
     orderSummary = (
       <OrderSummary ingredients={props.ingredients} price={props.price}
           cancel={hideOrderSummary} continue={continuePurchase}/>
@@ -77,10 +78,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingredient) => dispatch(actions.addIngredient(ingredient)),
-    onIngredientRemoved: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
-    onInitializeIngredients: () => dispatch(actions.initializeIngredients()),
-    onInitializeCheckout: () => dispatch(actions.initializeCheckout())
+    ingredientAdded: (ingredient) => dispatch(actions.addIngredient(ingredient)),
+    ingredientRemoved: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
+    initializeIngredients: () => dispatch(actions.initializeIngredients()),
+    initializeCheckout: () => dispatch(actions.initializeCheckout())
   };
 };
 

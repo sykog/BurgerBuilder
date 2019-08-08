@@ -113,8 +113,8 @@ const ContactInfo = props => {
       userId: props.userId
     };
 
-    props.onOrderBurger(order);
-    props.onInitializeIngredients();
+    props.orderBurger(order);
+    props.initializeIngredients();
   };
 
   const formElements = [];
@@ -158,8 +158,8 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return {
-    onOrderBurger: orderData => dispatch(actions.completePurchase(orderData)),
-    onInitializeIngredients: () => dispatch(actions.initializeIngredients())
+    orderBurger: orderData => dispatch(actions.completePurchase(orderData)),
+    initializeIngredients: () => dispatch(actions.initializeIngredients())
   };
 };
 

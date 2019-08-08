@@ -16,16 +16,12 @@ const Orders = props => {
   let orders = <Spinner/>;
   if (!props.loading) {
     orders = props.orders.map(order => (
-      <Order key={order.id} ingredients={order.ingredients} price={order.price}
-             orderName={order.orderData.name}/>
+      <Order key={order.id} ingredients={order.ingredients}
+             price={order.price} orderName={order.orderData.name}/>
     ));
   }
 
-  return (
-    <div>
-      {orders}
-    </div>
-  );
+  return (<div>{orders}</div>);
 }
 
 const matchStateToProps = state => {
