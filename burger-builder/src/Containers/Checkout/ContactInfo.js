@@ -113,7 +113,8 @@ const ContactInfo = props => {
       userId: props.userId
     };
 
-    props.onOrderBurger(order)
+    props.onOrderBurger(order);
+    props.onInitializeIngredients();
   };
 
   const formElements = [];
@@ -123,6 +124,7 @@ const ContactInfo = props => {
       config: orderForm[key]
     });
   }
+
   let form = (
     <form onSubmit={orderBurger}>
       {formElements.map(formElement => (
@@ -135,6 +137,7 @@ const ContactInfo = props => {
       <button className={classes.order} disabled={!validity}>Order</button>
     </form>
   );
+
   if (props.loading) form = <Spinner/>
   return (
     <div className={classes.contactInfo}>
@@ -155,7 +158,8 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return {
-    onOrderBurger: orderData => dispatch(actions.completePurchase(orderData))
+    onOrderBurger: orderData => dispatch(actions.completePurchase(orderData)),
+    onInitializeIngredients: () => dispatch(actions.initializeIngredients())
   };
 };
 

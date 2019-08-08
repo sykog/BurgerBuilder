@@ -16,6 +16,13 @@ const burger = props => {
 
   if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Please start adding ingredients!</p>
+  } else {
+    let counter = 0;
+    while (transformedIngredients[0].props.type.match("(beef|chicken|black bean).*")) {
+      transformedIngredients.push(transformedIngredients.shift());
+      counter++;
+      if (counter >= transformedIngredients.length) break;
+    }
   }
 
   return (
