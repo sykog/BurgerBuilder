@@ -9,7 +9,7 @@ import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler';
 const Orders = props => {
 
   useEffect(() => {
-    props.onFetchOrders(props.token);
+    props.fetchOrders(props.token);
     // eslint-disable-next-line
   }, []);
 
@@ -34,7 +34,7 @@ const matchStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: token => dispatch(actions.fetchOrders(token))
+    fetchOrders: token => dispatch(actions.fetchOrders(token))
   };
 };
 

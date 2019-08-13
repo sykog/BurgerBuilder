@@ -9,7 +9,7 @@ configure({adapter: new Adapter()});
 describe('<BurgerBuilder/>', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<BurgerBuilder onInitializeIngredients={() => {}}/>);
+    wrapper = shallow(<BurgerBuilder initializeIngredients={() => {}}/>);
   });
 
   it('should render Build Controls when receiving ingredients', () => {
